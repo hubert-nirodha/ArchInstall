@@ -11,7 +11,7 @@ echo "nirodha-pc" > /etc/hostname
 
 # Configure keyboard layout and font
 echo "KEYMAP=de-latin1-nodeadkeys" > /etc/vconsole.conf
-echo "FONT=lat9w-16" >> /etc/vconsole.conf
+echo "FONT=ter-132b" >> /etc/vconsole.conf
 
 # Set locale
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
@@ -29,13 +29,13 @@ nano /etc/pacman.conf
 # Synchronize package lists and generate initial ramdisk image
 pacman -Sy
 mkinitcpio -p linux
-
+sleep 2
 # Set root password
 passwd
 
 # Install additional packages
 pacman -S efibootmgr dosfstools gptfdisk reflector exa fzf
-
+sleep 2
 # Install and update boot entries
 bootctl install
 
@@ -79,7 +79,7 @@ EOF
 bootctl update
 
 # clear and wait 5 seconds before saving commands in a text file
-clear
+#clear
 echo "Unmount and reboot to start the 3. installation script!"
 
 #echo "Used commands will be saved in /home/cmds_during_chroot.txt"
