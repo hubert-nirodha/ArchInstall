@@ -7,7 +7,7 @@
 # Please ensure you have chrooted into the target system before running this script.**
 
 # Set hostname
-echo "nirodha-pc" > /etc/hostname
+echo "pc" > /etc/hostname
 
 # Configure keyboard layout and font
 echo "KEYMAP=de-latin1-nodeadkeys" > /etc/vconsole.conf
