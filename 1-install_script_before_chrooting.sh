@@ -57,6 +57,7 @@ reflector --verbose -l 10 -p https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-lts linux-firmware linux-headers linux-lts-headers nano dhcpcd iwd dialog intel-ucode bash-completion git
 genfstab -Up /mnt > /mnt/etc/fstab
 cat .zsh_history > /mnt/home/cmds_before_chrooting.txt
+cat /
 #clear
 cat /mnt/etc/fstab
 echo " "
