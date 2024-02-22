@@ -9,12 +9,12 @@ timedatectl set-ntp true
 # Partitionierung und Dateisysteme:
 
 # Festplattenbezeichnung
-DEVICE="/dev/nvme0n1"
+#DEVICE="/dev/nvme0n1"
 
 # Partitionsgrößen
-EFI_SIZE=1024M
-ROOT_SIZE=50G
-HOME_SIZE=700G
+#EFI_SIZE=1024M
+#ROOT_SIZE=50G
+#HOME_SIZE=700G
 #SWAP_SIZE="32000M"
 
 # Partitionierung mit sgdisk
@@ -52,12 +52,13 @@ mount -L HOME /mnt/home
 mkdir -p /mnt/boot
 mount -L EFIBOOT /mnt/boot
 lsblk
-sleep 5
+sleep 3
 reflector --verbose -l 10 -p https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-lts linux-firmware linux-headers linux-lts-headers nano dhcpcd iwd dialog intel-ucode bash-completion git
 genfstab -Up /mnt > /mnt/etc/fstab
 cat .zsh_history > /mnt/home/cmds_before_chrooting.txt
 #clear
+cat /mnt/etc/fstab
 echo " "
 echo " "
 echo " 'arch-chroot /mnt' and run ./2-install_script_during_chrooting.sh "
