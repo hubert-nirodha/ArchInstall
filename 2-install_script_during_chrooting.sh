@@ -11,7 +11,7 @@ echo "pc" > /etc/hostname
 
 # Configure keyboard layout and font
 echo "KEYMAP=de-latin1-nodeadkeys" > /etc/vconsole.conf
-echo "FONT=ter-132b" >> /etc/vconsole.conf
+echo "FONT=lat9w-16" >> /etc/vconsole.conf
 
 # Set locale
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
@@ -85,5 +85,5 @@ echo "Unmount and reboot to start the 3. installation script!"
 #echo "Used commands will be saved in /home/cmds_during_chroot.txt"
 #history | wc -l > /home/cmds_during_chroot.txt
 #history > /home/cmds_during_chroot.txt
-sleep 5
+sleep 2
 exit
