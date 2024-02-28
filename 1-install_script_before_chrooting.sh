@@ -1,8 +1,6 @@
 #!/bin/bash
-loadkeys de-latin1
-setfont ter-132b
-HISTFILESIZE=10000
-HISTSIZE=10000
+#loadkeys de-latin1
+#setfont ter-132b
 #ping -c3 archlinux.org
 timedatectl set-ntp true
 
@@ -52,12 +50,11 @@ mount -L HOME /mnt/home
 mkdir -p /mnt/boot
 mount -L EFIBOOT /mnt/boot
 lsblk
-sleep 3
+sleep 2
 reflector --verbose -l 10 -p https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-lts linux-firmware linux-headers linux-lts-headers nano dhcpcd iwd dialog intel-ucode bash-completion git
 genfstab -Up /mnt > /mnt/etc/fstab
-cat .zsh_history > /mnt/home/cmds_before_chrooting.txt
-cat /
+#cat .zsh_history > /mnt/home/cmds_before_chrooting.txt
 #clear
 cat /mnt/etc/fstab
 echo " "
