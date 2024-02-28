@@ -56,6 +56,7 @@ pacstrap /mnt base base-devel linux linux-lts linux-firmware linux-headers linux
 genfstab -Up /mnt > /mnt/etc/fstab
 #cat .zsh_history > /mnt/home/cmds_before_chrooting.txt
 #clear
+cp 2-install_script_during_chrooting.sh/mnt/root
 cat /mnt/etc/fstab
 echo " "
 echo " "
