@@ -79,10 +79,10 @@ EOF
 bootctl update
 
 git clone https://github.com/hubert-nirodha/ArchInstall
-
+mv /ArchInstall/*.sh /root
 # clear and wait 5 seconds before saving commands in a text file
 #clear
-echo "Unmount and reboot to start the 3. installation script!"
+echo "Exit chroot environment, unmount and reboot to start the 3. installation script!"
 
 #echo "Used commands will be saved in /home/cmds_during_chroot.txt"
 #history | wc -l > /home/cmds_during_chroot.txt
