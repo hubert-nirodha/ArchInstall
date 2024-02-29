@@ -1,0 +1,2 @@
+# The next step, a new branch, will be using read and ncurses to process user input, which will be stored in variables. So that an automated script is possible on every laptop and user.
+# It is important that sensible information (e.g. passwords) is processed in a secure way.
