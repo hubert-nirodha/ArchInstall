@@ -28,22 +28,21 @@ systemctl enable acpid
 systemctl enable avahi-daemon
 systemctl enable cups.service
 systemctl enable --now systemd-timesyncd.service
-#systemctl enable bluetooth
 # fstrim Timer aktivieren für automatische Dateisystem-Defragmentierung:
 systemctl enable fstrim.timer
 
-pacman -S wayland xorg-xwayland xorg-xlsclients qt5-wayland plasma-wayland-session plasma-desktop plasma-pa bluedevil bluez bluez-libs bluez-tools bluez-utils sddm sddm-kcm plasma-nm bluez-plugins
+pacman -S xorg-xwayland qt5-wayland plasma-wayland-session plasma-desktop plasma-pa bluedevil bluez bluez-libs bluez-tools bluez-utils sddm sddm-kcm plasma-nm bluez-plugins
 
 # SDDM Konfiguration anpassen
 # -> Ueberpruefe, ob der Abschnitt "[General]" existiert
 #grep -q '^\[General\]$' /etc/sddm.conf || echo "[General]" >> /etc/sddm.conf
 # -> Setze die Standard-Session auf Plasma Wayland
 #sed -i 's/^DefaultSession=.*/DefaultSession=plasma.wayland/' /etc/sddm.conf
-nano /etc/sddm.conf
-
 
 # SDDM aktivieren
 systemctl enable sddm
+systemctl enable bluetooth
+nano /etc/sddm.conf
 
 # iwd deaktivieren
 systemctl stop iwd.service
