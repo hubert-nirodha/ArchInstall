@@ -4,7 +4,7 @@ sudo pacman -S --needed linux-docs khotkeys plasma-firewall ttf-liberation linux
 sleep 2
 sudo pacman -S --needed plasma-browser-integration kinfocenter breeze-plymouth unzip kdeplasma-addons plasma-vault powerdevil plasma-thunderbolt xdg-desktop-portal-kde plasma-disks breeze-gtk xarchiver man-db man-pages tldr 
 sleep 2
-
+sudo pacman -S tree bat 
 # Delete "debug" from the line OPTIONS in /etc/makepkg.conf: 
 echo " "
 echo "Delete <debug> from the line OPTIONS"
