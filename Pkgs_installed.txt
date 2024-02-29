@@ -1,3 +1,4 @@
+# 1-install_script_before_chrooting.sh
 
 # 2-install_script_during_chrooting.sh
 efibootmgr 
