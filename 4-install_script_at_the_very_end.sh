@@ -41,4 +41,14 @@ yay -S qt5-webkit
 # Similar to tldr, cheat provides short and to-the-point summaries of various Linux commands and tools:
 yay -S cheat
 
-### installiere und konfiguriere KDE Plasma mit plasmashel, kpackagetool5 ...
+
+
+
+### Zusätzliche Pakete: qt5-tools (enthält z.B. den qdbusviewer)
+### installiere und konfiguriere KDE Plasma mit plasmashel, kpackagetool5, kwriteconfig5 ...
+### It's possible to inspect various APIs using qdbusviewer tool from qt-tools package. For example, I can click on showText method to display a message. The CLI command for the same action will be:
+qdbus-qt5 org.kde.plasmashell /org/kde/osdService org.kde.osdService.showText "" "TEST!"
+### You can see that it's essentially the same path that's on the screenshot with "" and "TEST!" being the arguments to showText function.
+### This command will display a message with "TEST!" text (the first argument is an icon, empty in this case)
+### To kill and restart plasma:
+kquitapp5 plasmashell && kstart5 plasmashell
