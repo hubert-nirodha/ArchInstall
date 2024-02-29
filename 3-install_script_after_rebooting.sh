@@ -31,7 +31,7 @@ systemctl enable --now systemd-timesyncd.service
 # fstrim Timer aktivieren für automatische Dateisystem-Defragmentierung:
 systemctl enable fstrim.timer
 
-pacman -S plasma-wayland-session plasma-desktop kpipewire plasma-pa bluedevil bluez bluez-libs bluez-tools bluez-utils sddm sddm-kcm plasma-nm bluez-plugins
+pacman -S plasma-wayland-session plasma-desktop kpipewire plasma-pa bluedevil bluez bluez-libs bluez-tools bluez-utils sddm sddm-kcm plasma-nm bluez-plugins konsole dolphin dolphin-plugins kate pacman-contrib firefox yakuake
 
 # SDDM Konfiguration anpassen
 # -> Ueberpruefe, ob der Abschnitt "[General]" existiert
