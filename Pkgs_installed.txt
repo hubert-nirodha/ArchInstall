@@ -1,0 +1,24 @@
+
+
+# 3-install_script_after_rebooting.sh
+plasma-wayland-session
+plasma-desktop
+kpipewire
+plasma-pa
+bluedevil
+bluez
+bluez-libs
+bluez-tools
+bluez-utils
+sddm
+sddm-kcm
+plasma-nm
+bluez-plugins
+konsole
+dolphin
+dolphin-plugins
+kate
+pacman-contrib
+firefox
+yakuake
+
