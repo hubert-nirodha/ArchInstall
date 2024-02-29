@@ -1,0 +1,3 @@
+# This file explains the script 1-install_script_before_chrooting.sh in a larger context.
+# The aim of the first three scripts is to install an Arch Linux system with wayland as the display server, the plasma-desktop as a minimal Desktop Environment, the simple built-in systemd-boot Boot Manager and wifi, bluetooth etc. The fourth script installs my perfect DE with all my preferred applications. A fifth script is needed for configuration (my own dotfiles etc.):
+# CHANGE EVERY SCRIPT TO YOUR NEEDS BEFORE USING! IT DELETES EVERYTHING! 
