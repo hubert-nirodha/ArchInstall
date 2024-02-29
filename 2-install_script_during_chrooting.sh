@@ -80,6 +80,7 @@ bootctl update
 
 git clone https://github.com/hubert-nirodha/ArchInstall
 mv /ArchInstall/*.sh /root
+chmod +x /root/*.sh
 # clear and wait 5 seconds before saving commands in a text file
 #clear
 echo "Exit chroot environment, unmount and reboot to start the 3. installation script!"
