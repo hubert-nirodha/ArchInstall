@@ -33,6 +33,19 @@ systemctl enable fstrim.timer
 
 pacman -S plasma-wayland-session plasma-desktop kpipewire plasma-pa bluedevil bluez bluez-libs bluez-tools bluez-utils sddm sddm-kcm plasma-nm bluez-plugins konsole dolphin dolphin-plugins kate pacman-contrib firefox yakuake
 
+# Chaotic AUR einrichten (VORSICHT: Experimentelles Repository!)
+# Schlüssel für Chaotic AUR hinzufügen:
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key 3056513887B78AEB
+
+# Chaotic AUR Paketquellen hinzufügen:
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+
+# Pacman Konfiguration anpassen (Chaotic-AUR Repository ans Ende der pacman.conf Datei hinzufügen):
+echo "[chaotic-aur]" >> /etc/pacman.conf
+echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
+
 # SDDM Konfiguration anpassen
 # -> Ueberpruefe, ob der Abschnitt "[General]" existiert
 #grep -q '^\[General\]$' /etc/sddm.conf || echo "[General]" >> /etc/sddm.conf
