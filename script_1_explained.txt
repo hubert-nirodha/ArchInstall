@@ -1,3 +1,87 @@
-# This file explains the script 1-install_script_before_chrooting.sh in a larger context.
-# The aim of the first three scripts is to install an Arch Linux system with wayland as the display server, the plasma-desktop as a minimal Desktop Environment, the simple built-in systemd-boot Boot Manager and wifi, bluetooth etc. The fourth script installs my perfect DE with all my preferred applications. A fifth script is needed for configuration (my own dotfiles etc.):
-# CHANGE EVERY SCRIPT TO YOUR NEEDS BEFORE USING! IT DELETES EVERYTHING! 
+### This file explains the script 1-install_script_before_chrooting.sh in a larger context.
+### The aim of the first three scripts is to install an Arch Linux system with wayland as the display server, the plasma-desktop as a minimal Desktop Environment, the simple built-in systemd-boot Boot Manager and wifi, bluetooth etc. The fourth script installs my perfect DE with all my preferred applications. A fifth script is needed for configuration (my own dotfiles etc.):
+### CHANGE EVERY SCRIPT TO YOUR NEEDS BEFORE USING! IT DELETES EVERYTHING!
+
+### Every script must begin with the so-called shebang (#!) on Unix-like systems. It's a combination of two characters: Hash and Bang: # (hash symbol) and ! (exclamation mark, sometimes called a "bang"). IT MUST ALWAYS BE THE VERY FIRST LINE OF A SCRIPT! The shebang tells the operating system which program (interpreter) should be used to execute the rest of the script. The part immediately following the shebang (#!) specifies the absolute path to the interpreter program. For example: #!/bin/bash - Use the Bash shell interpreter located at /bin/bash
+### Script Execution: When you try to execute a script with a shebang line, the operating system reads that line and launches the specified interpreter. This interpreter, in turn, parses and executes the remaining instructions in the script.
+#!/bin/bash
+
+### The keyboard layout, the console font, the wifi-access and the downloading of the 1. install script must be done manually (see the outcommented commands below):  
+#loadkeys de-latin1
+#setfont ter-132b
+#iwctl
+#ping -c3 archlinux.org
+#curl -O https://raw.githubusercontent.com/hubert-nirodha/ArchInstall/main/1-install_script_before_chrooting.sh
+
+###  timedatectl (ctl stands for control) may be used to query and change the system clock and its settings, and enable or disable time synchronization services. This command 'timedatectl set-ntp true' is used to enable and start the network time synchronization service on most modern Linux distributions, including Arch Linux. Having an accurate system clock is crucial for various applications and processes, such as logging, scheduling tasks, and financial transactions. Network time synchronization helps ensure your system clock is consistent with the real world. By enabling this service 'set-ntp true', you don't need to manually adjust the time on your system. It will automatically synchronize with reference servers periodically. See 'man timedatectl'. 
+timedatectl set-ntp true
+
+### 'sgdisk' is the command-line tool for creating, deleting or changing GPT partitions on disks.
+### The command 'sgdisk --zap-all /dev/nvme0n1' is used to completely erase the existing partition table and signature from, in this case, an NVMe storage device (Non-Volatile Memory Express), /dev/nvme0n1. When recognized by the live system, disks are assigned to a block device such as /dev/sda, /dev/nvme0n1 or /dev/mmcblk0. To identify these devices, use lsblk or fdisk.: [See also https://wiki.archlinux.org/title/Device_file#Block_devices] 
+sgdisk --zap-all /dev/nvme0n1
+
+### -n 1:0:1G  This segment is used to create a new partition:
+###  1: This indicates the partition number.
+###  0: This indicates the starting sector of the partition. In this case, it's at the beginning of the disk.
+###  1G: This indicates the size of the partition (1 Gigabyte).
+###  -c 1:EFIBOOT This part sets attributes for the newly created partition:
+###  1: This refers to the partition number we just created.
+###  EFIBOOT: This gives the partition a name or label, indicating that the partition will likely be used as an EFI boot partition.
+###  -t 1:EF00  This sets the partition type code. This is the code for an EFI system partition. These partitions are crucial in UEFI-based systems, as they store the bootloader files necessary to start your operating system.
+###  /dev/nvme0n1:  This specifies the target disk you are working with, in this case your NVMe drive.
+In summary, this command creates a new partition: It allocates a 1 Gigabyte partition at the beginning of the disk, sets its label as "EFIBOOT" and assigns the EFI System Partition type: It designates the partition specifically for storing EFI boot files.
+sgdisk -n 1:0:1G -c 1:EFIBOOT -t 1:EF00 /dev/nvme0n1
+
+### n 2:0:+50G: This part creates a new partition:
+###  2: The partition number.
+###  0: The starting sector of the partition. This indicates that the partition should start immediately after the previous partition.
+###  +50G: The size of the partition (50 Gigabytes). Notice the plus sign (+), indicating that you want to use a relative size.
+###  -c 2:ROOT: This sets an attribute for the newly created partition:
+###  2: The partition number.
+###  ROOT: The name or label, indicating this partition is likely intended to be your root (/) file system.
+###  -t 2:8300: This sets the partition type code:
+###  2: The partition number.
+###  8300: The partition type code for a Linux filesystem.
+###  /dev/nvme0n1: Your  targeted NVMe disk.
+### This command creates a new partition immediately following the previous one and sets its size to 50 Gigabytes. Gives the partition the label "ROOT" and assigns Linux Filesystem Type: It sets the partition type to indicate it's intended to hold a Linux filesystem, making it suitable for potentially installing your root (/) file system.
+sgdisk -n 2:0:+50G -c 2:ROOT -t 2:8300 /dev/nvme0n1
+
+# HOME-Partition erstellen
+sgdisk -n 3:0:+700G -c 3:HOME -t 3:8300 /dev/nvme0n1
+
+echo " "
+echo " "
+echo " "
+lsblk
+# Swap-Datei erstellen
+#dd if=/dev/zero of=/swapfile bs=1M count=$SWAP_SIZE
+
+# Dateisystemformatierung
+mkfs.fat -F32 -n EFIBOOT /dev/nvme0n1p1
+mkfs.ext4 -L ROOT /dev/nvme0n1p2
+mkfs.ext4 -L HOME /dev/nvme0n1p3
+
+# Swap-Datei aktivieren
+#mkswap /swapfile
+#swapon /swapfile
+
+# Mounten der Partitionen
+mount -L ROOT /mnt
+mkdir /mnt/home
+mount -L HOME /mnt/home
+mkdir -p /mnt/boot
+mount -L EFIBOOT /mnt/boot
+lsblk
+sleep 2
+reflector --verbose -l 10 -p https --sort rate --save /etc/pacman.d/mirrorlist
+pacstrap /mnt base base-devel linux linux-lts linux-firmware linux-headers linux-lts-headers nano dhcpcd iwd dialog intel-ucode bash-completion git
+genfstab -Up /mnt > /mnt/etc/fstab
+#cat .zsh_history > /mnt/home/cmds_before_chrooting.txt
+#clear
+
+cp 2-install_script_during_chrooting.sh /mnt/
+cat /mnt/etc/fstab
+ls /mnt
+echo " "
+echo " "
+echo " 'arch-chroot /mnt' and run ./2-install_script_during_chrooting.sh "
