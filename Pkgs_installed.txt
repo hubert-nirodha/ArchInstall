@@ -1,5 +1,18 @@
 # 1-install_script_before_chrooting.sh
-
+base
+base-devel
+linux
+linux-lts
+linux-firmware
+linux-headers
+linux-lts-headers
+nano
+dhcpcd
+iwd
+dialog
+intel-ucode
+bash-completion
+git
 # 2-install_script_during_chrooting.sh
 efibootmgr 
 dosfstools 
