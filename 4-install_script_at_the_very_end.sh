@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo pacman -S --needed pipewire-pulse pipewire-audio konsole dolphin dolphin-plugins kate pacman-contrib firefox
+sudo pacman -S --needed pipewire-pulse pipewire-audio 
 sleep 2
 sudo pacman -S linux-docs khotkeys plasma-firewall ttf-liberation linux-tools-meta plymouth-kcm linux-lts-docs kde-gtk-config plasma-workspace-wallpapers yakuake  
 sleep 2
