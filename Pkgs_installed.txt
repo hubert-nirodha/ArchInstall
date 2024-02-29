@@ -32,10 +32,10 @@ bluez
 bluez-libs
 bluez-tools
 bluez-utils
+bluez-plugins
 sddm
 sddm-kcm
 plasma-nm
-bluez-plugins
 konsole
 dolphin
 dolphin-plugins
