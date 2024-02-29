@@ -1,5 +1,11 @@
 
-
+# 2-install_script_during_chrooting.sh
+efibootmgr 
+dosfstools 
+gptfdisk 
+reflector 
+exa
+fzf
 # 3-install_script_after_rebooting.sh
 acpid
 cups
