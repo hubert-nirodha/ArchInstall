@@ -6,6 +6,24 @@ timedatectl set-ntp true
 
 # Partitionierung und Dateisysteme:
 
+# Ask for user input
+read -p "Enter disk name (e.g., /dev/sda or /dev/nvme0n1): " DISK
+read -p "Desired size for EFI partition in MB (default: 512): " EFI_SIZE
+read -p "Desired size for ROOT partition in GB (default: 30): " ROOT_SIZE
+read -p "Desired size for HOME partition in GB (default: 0, no separate HOME): " HOME_SIZE
+read -p "Enter desired size for swap in MB (or enter '0' to skip swap): " SWAP_SIZE
+
+# Display information and potential risks
+echo "**WARNING:** This script will erase all data on the chosen disk ($DISK)."
+echo "Please ensure you have backups of any important data."
+echo "**Note:** Using separate HOME partition might require additional configuration later."
+
+# Continue with script execution only if user confirms
+read -p "Confirm continuing (y/n)? " CONFIRM
+if [[ "$CONFIRM" != "y" ]]; then
+  exit 0
+fi
+
 # Festplattenbezeichnung
 #DEVICE="/dev/nvme0n1"
 
