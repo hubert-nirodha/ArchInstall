@@ -1,6 +1,8 @@
 
 
 # 3-install_script_after_rebooting.sh
+acpid
+cups
 plasma-wayland-session
 plasma-desktop
 kpipewire
