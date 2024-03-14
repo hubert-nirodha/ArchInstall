@@ -59,7 +59,7 @@ lsblk
 sleep 2
 reflector --verbose -l 10 -p https --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap /mnt base base-devel linux linux-lts linux-firmware linux-headers linux-lts-headers nano dhcpcd iwd dialog intel-ucode bash-completion git
-genfstab -Up /mnt > /mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
 #cat .zsh_history > /mnt/home/cmds_before_chrooting.txt
 #clear
 cp 2-install_script_during_chrooting.sh /mnt/
