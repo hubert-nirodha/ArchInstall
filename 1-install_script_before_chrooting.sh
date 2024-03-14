@@ -32,18 +32,23 @@ echo " "
 echo " "
 lsblk
 
-# Swap-Datei erstellen
-dd if=/dev/zero of=/swapfile bs=1M count=32k status=progress
-
 # Dateisystemformatierung
 mkfs.fat -F32 -n EFIBOOT /dev/nvme0n1p1
 mkfs.ext4 -L ROOT /dev/nvme0n1p2
 mkfs.ext4 -L HOME /dev/nvme0n1p3
 
+# Swap-Datei erstellen
+dd if=/dev/zero of=/swapfile bs=1M count=32k status=progress
+# Set the right permissions (a world-readable swap file is a huge local vulnerability):
+chmod 0600 /swapfile
+# After creating the correctly sized file, format it to swap:
+mkswap -U clear /swapfile
 # Swap-Datei aktivieren
-mkswap /swapfile
 swapon /swapfile
 
+echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+# To set the swappiness value permanently, create a sysctl.d(5) configuration file. For example:
+echo "vm.swappiness = 10" > /etc/sysctl.d/99-swappiness.conf
 # Mounten der Partitionen
 mount -L ROOT /mnt
 mkdir /mnt/home
@@ -63,3 +68,4 @@ ls /mnt
 echo " "
 echo " "
 echo " 'arch-chroot /mnt' and run ./2-install_script_during_chrooting.sh "
+echo " "
