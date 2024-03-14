@@ -67,5 +67,6 @@ cat /mnt/etc/fstab
 ls /mnt
 echo " "
 echo " "
-echo " 'arch-chroot /mnt' and run ./2-install_script_during_chrooting.sh "
+# echo " 'arch-chroot /mnt' and run ./2-install_script_during_chrooting.sh "
 echo " "
+cat 2-install_script_during_chrooting.sh | arch-chroot /mnt 
