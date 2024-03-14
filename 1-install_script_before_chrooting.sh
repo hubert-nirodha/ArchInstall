@@ -31,8 +31,9 @@ echo " "
 echo " "
 echo " "
 lsblk
+
 # Swap-Datei erstellen
-#dd if=/dev/zero of=/swapfile bs=1M count=$SWAP_SIZE
+dd if=/dev/zero of=/swapfile bs=1M count=32k status=progress
 
 # Dateisystemformatierung
 mkfs.fat -F32 -n EFIBOOT /dev/nvme0n1p1
@@ -40,8 +41,8 @@ mkfs.ext4 -L ROOT /dev/nvme0n1p2
 mkfs.ext4 -L HOME /dev/nvme0n1p3
 
 # Swap-Datei aktivieren
-#mkswap /swapfile
-#swapon /swapfile
+mkswap /swapfile
+swapon /swapfile
 
 # Mounten der Partitionen
 mount -L ROOT /mnt
